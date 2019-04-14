@@ -15,7 +15,7 @@ int	machobj_mmap(t_machobj *mach, int fd)
 		return 1;
 	size = buf.st_size;
 
-	mem = mmap(NULL, size, PROT_READ | PROT_WRITE, 0, fd, 0);
+	mem = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
 	if (mem == MAP_FAILED)
 		return 1;
 
