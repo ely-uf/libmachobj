@@ -6,6 +6,8 @@ typedef enum	e_machobj_err
 	MO_OK,
 	MO_OPEN_FAILED,
 	MO_MMAP_FAILED,
+	MO_TRUNCATED,
+	MO_INVALID,
 	MO_LAST
 }				t_machobj_err;
 

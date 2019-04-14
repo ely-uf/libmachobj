@@ -3,6 +3,9 @@
 static const char *arr[MO_LAST] = {
 	"All good.",
 	"Failed to open file.",
+	"Failed to map file in memory.",
+	"File seems to be truncated or corrupted.",
+	"File contents are invalid."
 };
 
 static t_machobj_err mach_errno;
