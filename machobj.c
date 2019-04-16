@@ -8,9 +8,9 @@ int machobj_load(t_machobj *mach, const char *filename)
 	if (res != 0)
 		return res;
 
-	/*
-	 *	XXX: TBD
-	 */
+	res = machobj_parse(mach);
+	if (res != 0)
+		return res;
 
 	return res;
 }

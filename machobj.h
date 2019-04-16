@@ -16,9 +16,9 @@ typedef enum	e_bitarch
 
 union			u_bin_hdr
 {
-	struct mach_header		mach32;
-	struct mach_header_64	mach64;
-	struct fat_header		fat;
+	struct mach_header		*mach32;
+	struct mach_header_64	*mach64;
+	struct fat_header		*fat;
 };
 
 typedef struct	s_lcommand
@@ -32,10 +32,11 @@ typedef struct	s_machobj
 	void				*data;
 	size_t				size;
 	t_bitarch			bit_arch;
-	union u_bin_hdr		*bin_hdr;
+	union u_bin_hdr		bin_hdr;
 	t_lcommand			*load_commands;
 }				t_machobj;
 
+int		machobj_parse(t_machobj *mach);
 int		machobj_open(t_machobj *mach, const char *filename);
 int		machobj_load(t_machobj *mach, const char *filename);
 

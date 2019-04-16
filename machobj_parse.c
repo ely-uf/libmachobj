@@ -1,5 +1,6 @@
 #include "machobj.h"
 #include "machobj_err.h"
+#include "machobj_header.h"
 
 int		machobj_parse_bitarch(t_machobj *mach)
 {
@@ -24,14 +25,27 @@ int		machobj_parse_bitarch(t_machobj *mach)
 	return 0;
 }
 
+int		machobj_parse_header_arch(t_machobj *mach)
+{
+	if (mach->bit_arch == BIT_64)
+		return machobj_parse_mach_header_64(mach);
+	else if (mach->bit_arch == BIT_32)
+		return machobj_parse_mach_header_32(mach);
+	return 1;
+}
+
 int		machobj_parse_header(t_machobj *mach)
 {
 	int	res;
 
 	res = machobj_parse_bitarch(mach);
+	if (res != 0)
+		return res;
+	res = machobj_parse_header_arch(mach);
 	/*
 	 *	XXX: TBD
 	 */
+	return 0;
 }
 
 int		machobj_parse(t_machobj *mach)
@@ -40,7 +54,11 @@ int		machobj_parse(t_machobj *mach)
 
 	res = machobj_parse_header(mach);
 	if (res != 0)
-	{
 		return res;
-	}
+
+	/*
+	 *	TBD
+	 */
+
+	return 0;
 }
