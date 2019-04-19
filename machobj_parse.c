@@ -2,7 +2,7 @@
 #include "machobj_err.h"
 #include "machobj_header.h"
 
-int		machobj_parse_bitarch(t_machobj *mach)
+int		machobj_parse_magic(t_machobj *mach)
 {
 	uint32_t	magic;
 
@@ -13,9 +13,25 @@ int		machobj_parse_bitarch(t_machobj *mach)
 	}
 	magic = *(uint32_t*)mach->data;
 	if (magic == MH_MAGIC)
+	{
 		mach->bit_arch = BIT_32;
+		mach->swap_bytes = false;
+	}
+	else if (magic == MH_CIGAM)
+	{
+		mach->bit_arch = BIT_32;
+		mach->swap_bytes = true;
+	}
 	else if (magic == MH_MAGIC_64)
+	{
 		mach->bit_arch = BIT_64;
+		mach->swap_bytes = false;
+	}
+	else if (magic == MH_CIGAM_64)
+	{
+		mach->bit_arch = BIT_64;
+		mach->swap_bytes = true;
+	}
 	else
 	{
 		machobj_set_err(MO_INVALID);
@@ -38,14 +54,14 @@ int		machobj_parse_header(t_machobj *mach)
 {
 	int	res;
 
-	res = machobj_parse_bitarch(mach);
+	res = machobj_parse_magic(mach);
 	if (res != 0)
 		return res;
 	res = machobj_parse_header_arch(mach);
 	/*
 	 *	XXX: TBD
 	 */
-	return 0;
+	return res;
 }
 
 int		machobj_parse(t_machobj *mach)

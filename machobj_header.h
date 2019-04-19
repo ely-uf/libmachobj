@@ -7,9 +7,14 @@
 # include "machobj_utils.h"
 
 static const uint32_t	machobj_filetypes[] = {
-	MH_OBJECT, MH_EXECUTE, MH_BUNDLE,
-	MH_DYLIB, MH_PRELOAD, MH_CORE,
-	MH_DYLINKER, MH_DSYM
+	MH_OBJECT,
+	MH_EXECUTE,
+	MH_BUNDLE,
+	MH_DYLIB,
+	MH_PRELOAD,
+	MH_CORE,
+	MH_DYLINKER,
+	MH_DSYM
 };
 
 static inline bool machobj_mach_header_filetype_is_valid(uint32_t ftype)
