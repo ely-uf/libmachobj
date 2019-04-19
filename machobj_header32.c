@@ -6,7 +6,7 @@
 
 bool	machobj_mach_header_32_is_valid(struct mach_header *hdr)
 {
-	if (hdr->cputype != CPU_TYPE_POWERPC && hdr->cputype != CPU_TYPE_I386)
+	if (!machobj_mach_header_cputype_is_valid(hdr->cputype))
 		return false;
 	/*
 	 *	XXX: subtype (?)
