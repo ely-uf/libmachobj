@@ -32,13 +32,17 @@ typedef struct	s_machobj
 {
 	void			*data;
 	size_t			size;
+
 	bool			swap_bytes;
 	t_bitarch		bit_arch;
 	union u_hdr		hdr;
+
+	size_t			lc_loaded;
 	t_lcommand		*load_commands;
 }				t_machobj;
 
-int		machobj_parse(t_machobj *mach);
+int		machobj_parse_header(t_machobj *mach);
+int		machobj_parse_load_commands(t_machobj *mach);
 int		machobj_open(t_machobj *mach, const char *filename);
 int		machobj_load(t_machobj *mach, const char *filename);
 

@@ -55,6 +55,21 @@ static inline bool machobj_mach_header_cputype_is_valid(cpu_type_t ctype)
 	return false;
 }
 
+static inline uint32_t machobj_mach_header_get_ncmds(t_machobj *mach)
+{
+	uint32_t ncmds = 0;
+
+	if (mach->bit_arch == BIT_64)
+		ncmds = mach->hdr.mach64->ncmds;
+	else if (mach->bit_arch == BIT_32)
+		ncmds = mach->hdr.mach32->ncmds;
+
+	if (mach->swap_bytes)
+		ncmds = BSWAP32(ncmds);
+
+	return ncmds;
+}
+
 int machobj_parse_mach_header_32(t_machobj *mach);
 int	machobj_parse_mach_header_64(t_machobj *mach);
 int	machobj_parse_header_arch(t_machobj *mach);
