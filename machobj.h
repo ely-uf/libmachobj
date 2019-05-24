@@ -6,8 +6,10 @@
 # include <stddef.h>
 # include <stdbool.h>
 
-#define _MALIGN(_v, _al) (((_v) + ((_al) - ((_v) % (_al)))))
-#define MACHOBJ_ALIGN(_b, _v) ((_b) == BIT_64 ? _MALIGN(_v, 8) : _MALIGN(_v, 4))
+# define _MALIGN(_v, _al) (((_v) + ((_al) - ((_v) % (_al)))))
+# define MACHOBJ_ALIGN(_b, _v) ((_b) == BIT_64 ? _MALIGN(_v, 8) : _MALIGN(_v, 4))
+# define MACHOBJ_IS_32BIT(_obj) ((_obj)->bit_arch == BIT_32)
+# define MACHOBJ_IS_64BIT(_obj) ((_obj)->bit_arch == BIT_64)
 
 typedef enum	e_bitarch
 {
@@ -25,7 +27,6 @@ union			u_hdr
 typedef struct	s_lcommand
 {
 	struct load_command *lcmd;
-	void				*cmd;
 }				t_lcommand;
 
 typedef struct	s_machobj
