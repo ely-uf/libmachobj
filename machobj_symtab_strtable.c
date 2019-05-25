@@ -1,6 +1,5 @@
 #include "machobj_symtab_strtable.h"
 #include "machobj_err.h"
-#include <string.h>
 
 const char  *machobj_symtab_strtable_get(t_machobj *obj,
                                          struct symtab_command *sc,
