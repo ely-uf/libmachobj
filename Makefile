@@ -10,9 +10,15 @@ SRC = machobj.c machobj_open.c machobj_err.c machobj_parse.c \
 OBJ = $(SRC:.c=.o)
 CC  = gcc
 CFLAGS = -Wall -Werror -Wextra
+TARGET := $(STATIC)
 
 ifdef DEBUG
 	CFLAGS += -DDEBUG
+endif
+
+ifdef DYLIB
+	CFLAGS += -fPIC
+	TARGET = $(DYNAMIC)
 endif
 
 %.o:%.c
@@ -21,12 +27,18 @@ endif
 $(STATIC): $(OBJ)
 	ar -rc $(STATIC) $(OBJ)
 
-all: $(STATIC)
+$(DYNAMIC): $(OBJ)
+	$(CC) -shared $(OBJ) -o $(DYNAMIC)
+
+compile: all
+
+all: $(TARGET)
 
 clean:
 	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(STATIC)
+	rm -f $(DYNAMIC)
 
 re: fclean all
