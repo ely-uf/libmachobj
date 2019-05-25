@@ -5,7 +5,8 @@ DYNAMIC = $(NAME).so
 
 SRC = machobj.c machobj_open.c machobj_err.c machobj_parse.c \
 	  machobj_header32.c machobj_header64.c machobj_load_commands.c \
-	  machobj_commands_getters.c machobj_lc_iter.c
+	  machobj_commands_getters.c machobj_lc_iter.c machobj_symtab.c	\
+	  machobj_symtab_strtable.c
 OBJ = $(SRC:.c=.o)
 CC  = gcc
 CFLAGS = -Wall -Werror -Wextra
