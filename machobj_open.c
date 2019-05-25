@@ -2,10 +2,11 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <stdlib.h>
 #include "machobj.h"
 #include "machobj_err.h"
 
-int	machobj_mmap(t_machobj *mach, int fd)
+int		machobj_mmap(t_machobj *mach, int fd)
 {
 	struct stat	buf;
 	size_t	size;
@@ -24,7 +25,7 @@ int	machobj_mmap(t_machobj *mach, int fd)
 	return 0;
 }
 
-int	machobj_open(t_machobj *mach, const char *filename)
+int		machobj_open(t_machobj *mach, const char *filename)
 {
 	int	fd;
 	int	res = 0;
@@ -42,4 +43,20 @@ int	machobj_open(t_machobj *mach, const char *filename)
 
 	close(fd);
 	return res;
+}
+
+void	machobj_close(t_machobj *mach)
+{
+	if (mach->data)
+	{
+		munmap(mach->data, mach->size);
+		mach->data = NULL;
+		mach->size = 0;
+	}
+
+	if (mach->load_commands)
+	{
+		free(mach->load_commands);
+		mach->load_commands = NULL;
+	}
 }

@@ -46,5 +46,6 @@ int		machobj_parse_header(t_machobj *mach);
 int		machobj_parse_load_commands(t_machobj *mach);
 int		machobj_open(t_machobj *mach, const char *filename);
 int		machobj_load(t_machobj *mach, const char *filename);
+void	machobj_close(t_machobj *mach);
 
 #endif
