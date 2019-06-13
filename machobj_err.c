@@ -2,6 +2,7 @@
 
 static const char *arr[MO_LAST] = {
     [MO_OK]             =   "All good.",
+    [MO_NOT_PARSED]     =   "Seems like you forgot to parse the file after opening!",
     [MO_OPEN_FAILED]    =   "Failed to open file.",
     [MO_MMAP_FAILED]    =   "Failed to map file in memory.",
     [MO_MALLOC_FAILED]  =   "Failed to allocate memory.",

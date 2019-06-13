@@ -4,6 +4,7 @@
 typedef enum    e_machobj_err
 {
     MO_OK,
+    MO_NOT_PARSED,
     MO_OPEN_FAILED,
     MO_MMAP_FAILED,
     MO_MALLOC_FAILED,
