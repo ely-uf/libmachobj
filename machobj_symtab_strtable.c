@@ -17,5 +17,5 @@ const char  *machobj_symtab_strtable_get(t_machobj *obj,
 
     strtable = (char*)obj->data + sc->stroff;
 
-	return &strtable[lookup_idx];
+    return &strtable[lookup_idx];
 }
