@@ -42,6 +42,7 @@ typedef struct	s_machobj
 	t_lcommand		*load_commands;
 }				t_machobj;
 
+bool	machobj_is_mach_o_file(const char *filename);
 int		machobj_parse_header(t_machobj *mach);
 int		machobj_parse_load_commands(t_machobj *mach);
 int		machobj_open(t_machobj *mach, const char *filename);
