@@ -1,5 +1,6 @@
 #include "machobj.h"
 #include "machobj_err.h"
+#include "machobj_debug.h"
 #include "machobj_header.h"
 
 int     machobj_parse_magic(t_machobj *mach)
@@ -34,6 +35,7 @@ int     machobj_parse_magic(t_machobj *mach)
     }
     else
     {
+        mdebug("Invalid magic: %u", magic);
         machobj_set_err(MO_INVALID);
         return 1;
     }
