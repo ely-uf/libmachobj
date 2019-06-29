@@ -33,8 +33,9 @@ size_t machobj_get_size_of_cmds(t_machobj *obj, uint32_t cmd)
 
 size_t machobj_get_cmds(t_machobj *obj, uint32_t cmd, void *vbuf)
 {
-    size_t  bytes_written = 0;
-    char    *buf = vbuf;
+    size_t              bytes_written = 0;
+    char                *buf = vbuf;
+    struct load_command *lc;
 
     for (size_t i = 0; i < obj->lc_loaded; i++)
     {
@@ -43,8 +44,15 @@ size_t machobj_get_cmds(t_machobj *obj, uint32_t cmd, void *vbuf)
             /*
             ** Alignment of 4/8.
             */
-            uint32_t cmdsize = MOBJ_GET32(obj, obj->load_commands[i].lcmd->cmdsize);
-            memcpy(buf + bytes_written, obj->load_commands[i].lcmd, cmdsize);
+            lc = obj->load_commands[i].lcmd;
+            uint32_t cmdsize = MOBJ_GET32(obj, lc->cmdsize);
+
+            if ((size_t)((void*)lc - obj->data + cmdsize) > obj->size)
+            {
+                machobj_set_err(MO_TRUNCATED);
+                return 0;
+            }
+            memcpy(buf + bytes_written, lc, cmdsize);
             bytes_written += cmdsize;
         }
     }
