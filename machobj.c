@@ -39,9 +39,11 @@ int     machobj_load(t_machobj *mach, const char *filename)
         return res;
 
     mdebug("Parsing load commands...");
-    res = machobj_parse_load_commands(mach);
+    res = machobj_load_commands_parse(mach);
     if (res != 0)
         return res;
+
+    mach->filename = filename;
 
     return res;
 }

@@ -21,7 +21,6 @@ union           u_hdr
 {
     struct mach_header      *mach32;
     struct mach_header_64   *mach64;
-    /* struct fat_header    *fat; */
 };
 
 typedef struct  s_lcommand
@@ -31,6 +30,7 @@ typedef struct  s_lcommand
 
 typedef struct  s_machobj
 {
+    const char      *filename;
     void            *data;
     size_t          size;
 
@@ -43,7 +43,7 @@ typedef struct  s_machobj
 }               t_machobj;
 
 int     machobj_parse_header(t_machobj *mach);
-int     machobj_parse_load_commands(t_machobj *mach);
+int     machobj_load_commands_parse(t_machobj *mach);
 int     machobj_open(t_machobj *mach, const char *filename);
 int     machobj_load(t_machobj *mach, const char *filename);
 void    machobj_close(t_machobj *mach);
