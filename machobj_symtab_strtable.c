@@ -14,7 +14,8 @@ const char  *machobj_symtab_strtable_get(t_machobj *obj,
 
     if (lookup_idx <= 0)
         return "";
-    if (stroff + strsize > obj->size || stroff + lookup_idx > obj->size)
+    if (stroff + strsize > obj->size ||
+        (size_t)(stroff + lookup_idx) > obj->size)
     {
         machobj_set_err(MO_TRUNCATED);
         return NULL;
@@ -36,7 +37,8 @@ size_t          machobj_symtab_strtable_strlen(t_machobj *obj,
 
     if (lookup_idx <= 0)
         return 0;
-    if (stroff + strsize > obj->size || stroff + lookup_idx > obj->size)
+    if (stroff + strsize > obj->size ||
+        (size_t)(stroff + lookup_idx) > obj->size)
         return 0;
 
     strtable = (char*)obj->data + stroff;
