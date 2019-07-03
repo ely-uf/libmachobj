@@ -64,7 +64,7 @@ static const char *lc_names[] = {
 /*
 **  Do not free.
 */
-t_lcommand  *machobj_load_commands_get(t_machobj *mach, uint32_t *ncmds);
+t_lc        *machobj_load_commands_get(t_machobj *mach, uint32_t *ncmds);
 int         machobj_load_commands_parse(t_machobj *mach);
 
 #endif

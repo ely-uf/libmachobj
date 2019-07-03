@@ -16,22 +16,22 @@ int     machobj_parse_magic(t_machobj *mach)
     if (magic == MH_MAGIC)
     {
         mach->bit_arch = BIT_32;
-        mach->swap_bytes = false;
+        mach->bswap = false;
     }
     else if (magic == MH_CIGAM)
     {
         mach->bit_arch = BIT_32;
-        mach->swap_bytes = true;
+        mach->bswap = true;
     }
     else if (magic == MH_MAGIC_64)
     {
         mach->bit_arch = BIT_64;
-        mach->swap_bytes = false;
+        mach->bswap = false;
     }
     else if (magic == MH_CIGAM_64)
     {
         mach->bit_arch = BIT_64;
-        mach->swap_bytes = true;
+        mach->bswap = true;
     }
     else
     {

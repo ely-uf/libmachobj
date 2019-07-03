@@ -53,10 +53,4 @@ void    machobj_close(t_machobj *mach)
         mach->data = NULL;
         mach->size = 0;
     }
-
-    if (mach->load_commands)
-    {
-        free(mach->load_commands);
-        mach->load_commands = NULL;
-    }
 }

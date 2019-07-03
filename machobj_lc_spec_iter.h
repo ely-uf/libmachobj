@@ -14,9 +14,8 @@ void                machobj_lc_spec_iter_init(t_lcs_iter *iter,
                                               void *mem,
                                               size_t size,
                                               bool bswap);
-
+struct load_command *machobj_lc_spec_next(t_lcs_iter *iter);
 void                machobj_lc_spec_iter_reset(t_lcs_iter *iter);
 
-struct load_command *machobj_lc_spec_iter_next(t_lcs_iter *iter);
 
 #endif

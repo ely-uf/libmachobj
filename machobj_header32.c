@@ -40,7 +40,7 @@ int     machobj_parse_mach_header_32(t_machobj *mach)
     }
 
     hdr = mach->data;
-    if (!machobj_mach_header_32_is_valid(hdr, mach->swap_bytes))
+    if (!machobj_mach_header_32_is_valid(hdr, mach->bswap))
     {
         machobj_set_err(MO_INVALID);
         return 1;

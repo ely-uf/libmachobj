@@ -60,12 +60,9 @@ static inline uint32_t machobj_mach_header_get_ncmds(t_machobj *mach)
     uint32_t ncmds = 0;
 
     if (mach->bit_arch == BIT_64)
-        ncmds = mach->hdr.mach64->ncmds;
+        ncmds = MOBJ_GET32(mach, mach->hdr.mach64->ncmds);
     else if (mach->bit_arch == BIT_32)
-        ncmds = mach->hdr.mach32->ncmds;
-
-    if (mach->swap_bytes)
-        ncmds = BSWAP32(ncmds);
+        ncmds = MOBJ_GET32(mach, mach->hdr.mach32->ncmds);
 
     return ncmds;
 }

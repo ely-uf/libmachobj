@@ -9,9 +9,9 @@
                                 sizeof(struct mach_header_64) : \
                                 sizeof(struct mach_header))
 
-t_lcommand  *machobj_load_commands_get(t_machobj *mach, uint32_t *ncmds)
+t_lc    *machobj_load_commands_get(t_machobj *mach, uint32_t *ncmds)
 {
-    if (mach->load_commands == NULL)
+    if (mach->lc == NULL)
     {
         *ncmds = 0;
         machobj_set_err(MO_NOT_PARSED);
@@ -22,14 +22,18 @@ t_lcommand  *machobj_load_commands_get(t_machobj *mach, uint32_t *ncmds)
     if (mach->lc_loaded == 0)
         return NULL;
 
-    return mach->load_commands;
+    return mach->lc;
 }
 
 static int  machobj_do_parse_load_commands(t_machobj *mach,
                                            uint32_t ncmds,
                                            void *lc_address)
 {
+    uint32_t    cmdsize;
+
     mach->lc_loaded = 0;
+    mach->lc_size = 0;
+    mach->lc = lc_address;
     while (mach->lc_loaded < ncmds)
     {
         if (lc_address - mach->data + sizeof(struct load_command) > mach->size)
@@ -42,8 +46,9 @@ static int  machobj_do_parse_load_commands(t_machobj *mach,
                 mach->lc_loaded = mach->lc_loaded ? mach->lc_loaded - 1 : 0;
             return 1;
         }
-        mach->load_commands[mach->lc_loaded].lcmd = lc_address;
-        lc_address += mach->load_commands[mach->lc_loaded].lcmd->cmdsize;
+        cmdsize = MOBJ_GET32(mach, ((struct load_command*)lc_address)->cmdsize);
+        lc_address += cmdsize;
+        mach->lc_size += cmdsize;
         mach->lc_loaded++;
     }
 
@@ -58,15 +63,8 @@ int machobj_load_commands_parse(t_machobj *mach)
 
     if (ncmds == 0)
     {
-        mach->load_commands = NULL;
+        mach->lc = NULL;
         return 0;
-    }
-
-    mach->load_commands = (t_lcommand*)malloc(sizeof(t_lcommand) * ncmds);
-    if (!mach->load_commands)
-    {
-        machobj_set_err(MO_MALLOC_FAILED);
-        return 1;
     }
 
     res = machobj_do_parse_load_commands(mach, ncmds, lc_address);

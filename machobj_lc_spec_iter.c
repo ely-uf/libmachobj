@@ -16,7 +16,7 @@ void    machobj_lc_spec_iter_reset(t_lcs_iter *iter)
     machobj_lc_iter_reset(&iter->lc_it);
 }
 
-struct load_command *machobj_lc_spec_iter_next(t_lcs_iter *iter)
+struct load_command *machobj_lc_spec_next(t_lcs_iter *iter)
 {
     struct load_command *lc;
 

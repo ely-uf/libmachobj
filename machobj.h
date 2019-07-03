@@ -23,10 +23,7 @@ union           u_hdr
     struct mach_header_64   *mach64;
 };
 
-typedef struct  s_lcommand
-{
-    struct load_command *lcmd;
-}               t_lcommand;
+typedef struct  load_command t_lc;
 
 typedef struct  s_machobj
 {
@@ -34,12 +31,13 @@ typedef struct  s_machobj
     void            *data;
     size_t          size;
 
-    bool            swap_bytes;
+    bool            bswap;
     t_bitarch       bit_arch;
     union u_hdr     hdr;
 
     size_t          lc_loaded;
-    t_lcommand      *load_commands;
+    t_lc            *lc;
+    size_t          lc_size;
 }               t_machobj;
 
 int     machobj_parse_header(t_machobj *mach);

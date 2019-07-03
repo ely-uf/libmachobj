@@ -12,7 +12,7 @@ typedef struct  s_lc_iter
     void    *mem;
     size_t  size;
     size_t  offset;
-    bool    swap_bytes;
+    bool    bswap;
 }               lc_iter;
 
 void                machobj_lc_iter_init(lc_iter *iter,
