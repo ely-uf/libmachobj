@@ -81,6 +81,12 @@ char            *machobj_symtab_strtable_get_safe_m(t_machobj *obj,
         return NULL;
     }
 
+    if (!size)
+    {
+        buf[0] = 0;
+        return buf;
+    }
+
     if (machobj_symtab_strtable_get_safe(obj, sc, lookup_idx, buf, size))
     {
         free(buf);
