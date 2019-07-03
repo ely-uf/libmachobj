@@ -13,8 +13,10 @@ bool    machobj_symbol32_is_valid(struct nlist *nl, bool swap_b)
         return nl->n_sect == NO_SECT;
     if (MO_NL_IS_INDIR(nl))
         return true;
+    if (MO_NL_IS_SECT(nl))
+        return nl->n_sect != NO_SECT;
 
-    return nl->n_sect != 0;
+    return true;
 } 
 
 bool    machobj_symbol64_is_valid(struct nlist_64 *nl, bool swap_b)
@@ -29,6 +31,8 @@ bool    machobj_symbol64_is_valid(struct nlist_64 *nl, bool swap_b)
         return nl->n_sect == NO_SECT;
     if (MO_NL_IS_INDIR(nl))
         return true;
+    if (MO_NL_IS_SECT(nl))
+        return nl->n_sect != NO_SECT;
 
-    return nl->n_sect != 0;
+    return true;
 }
